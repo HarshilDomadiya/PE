@@ -1,0 +1,3030 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Persona Career Counsellor</title>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter for clean typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. MODERN THEME WITH VIBRANT GRADIENTS & REFINED DESIGN TOKENS
+           ========================================================================== */
+        :root {
+            --bg-page: #f9fafb;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f3f4f6;
+            --bg-input: #ffffff;
+
+            --border-subtle: #e5e7eb;
+            --border-hover: #d1d5db;
+            --border-focus: #6366f1;
+
+            --text-title: #111827;
+            --text-body: #374151;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+
+            --brand-primary: #6366f1;
+            --brand-primary-hover: #4f46e5;
+            --brand-light: #eef2ff;
+
+            --persona-tech-bg: #f0f9ff;
+            --persona-tech-border: #bae6fd;
+            --persona-tech-accent: #0284c7;
+
+            --persona-hr-bg: #f0fdf4;
+            --persona-hr-border: #bbf7d0;
+            --persona-hr-accent: #16a34a;
+
+            --persona-acad-bg: #faf5ff;
+            --persona-acad-border: #e9d5ff;
+            --persona-acad-accent: #9333ea;
+
+            --persona-ent-bg: #fffbeb;
+            --persona-ent-border: #fde047;
+            --persona-ent-accent: #ea580c;
+
+            --font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 20px 40px -8px rgba(0, 0, 0, 0.15);
+
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark Theme Class Override */
+        body.dark-mode {
+            --bg-page: #0f172a;
+            --bg-surface: #1e293b;
+            --bg-subtle: #334155;
+            --bg-input: #1e293b;
+
+            --border-subtle: #334155;
+            --border-hover: #475569;
+            --border-focus: #818cf8;
+
+            --text-title: #f1f5f9;
+            --text-body: #cbd5e1;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+
+            --brand-primary: #818cf8;
+            --brand-primary-hover: #6366f1;
+            --brand-light: rgba(129, 140, 248, 0.15);
+
+            --persona-tech-bg: rgba(2, 132, 199, 0.15);
+            --persona-tech-border: rgba(34, 197, 255, 0.3);
+            --persona-tech-accent: #38bdf8;
+
+            --persona-hr-bg: rgba(22, 163, 74, 0.15);
+            --persona-hr-border: rgba(74, 222, 128, 0.3);
+            --persona-hr-accent: #4ade80;
+
+            --persona-acad-bg: rgba(147, 51, 234, 0.15);
+            --persona-acad-border: rgba(196, 181, 253, 0.3);
+            --persona-acad-accent: #d8b4fe;
+
+            --persona-ent-bg: rgba(234, 88, 12, 0.15);
+            --persona-ent-border: rgba(253, 224, 71, 0.3);
+            --persona-ent-accent: #fbbf24;
+        }
+
+        /* ==========================================================================
+           2. BASE REFINED STYLES
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-page);
+            color: var(--text-body);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: var(--text-title);
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        button {
+            font-family: var(--font-family);
+            cursor: pointer;
+            border: none;
+            outline: none;
+            user-select: none;
+        }
+
+        .card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        /* ==========================================================================
+           3. HEADER & TOP NAVIGATION - Modern Design
+           ========================================================================== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 16px 0;
+            transition: background 0.3s ease, border-color 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        body.dark-mode .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-title);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: #ffffff;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.92rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--brand-primary);
+        }
+
+        .header-right-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-title);
+            padding: 8px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--brand-primary);
+        }
+
+        .api-status-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .api-status-btn:hover {
+            border-color: var(--brand-primary);
+            color: var(--text-title);
+        }
+
+        .dot-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--persona-ent-accent);
+        }
+
+        .dot-indicator.active {
+            background-color: var(--persona-hr-accent);
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION - Modern Gradient Background
+           ========================================================================== */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #eef2ff 0%, #f0f9ff 50%, #f0fdf4 100%);
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(2, 132, 199, 0.05) 100%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-headline {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-title);
+            margin-bottom: 12px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #111827 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dark-mode .hero-headline {
+            background: linear-gradient(135deg, #f1f5f9 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subline {
+            font-size: 1.35rem;
+            color: var(--brand-primary);
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 0 auto 36px;
+            line-height: 1.7;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .feature-tag {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-full);
+            font-size: 0.92rem;
+            color: var(--text-body);
+            box-shadow: var(--shadow-sm);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           5. QUESTION INPUT & EXAMPLES SECTION
+           ========================================================================== */
+        .workspace-card {
+            padding: 36px;
+            margin-bottom: 36px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .input-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .input-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-title);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .char-counter {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--brand-light);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+        }
+
+        .char-counter.warning {
+            color: var(--persona-ent-accent);
+            background: rgba(234, 88, 12, 0.1);
+        }
+
+        .char-counter.exceeded {
+            color: #dc2626;
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .textarea-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .main-textarea {
+            width: 100%;
+            height: 140px;
+            padding: 16px 18px;
+            background: var(--bg-input);
+            border: 1.5px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-title);
+            font-family: var(--font-family);
+            font-size: 1.02rem;
+            line-height: 1.6;
+            resize: vertical;
+            transition: var(--transition);
+        }
+
+        .main-textarea:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .textarea-actions {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-tool-btn {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            border-radius: var(--radius-sm);
+            padding: 7px 13px;
+            font-size: 0.83rem;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .input-tool-btn:hover {
+            color: var(--brand-primary);
+            border-color: var(--brand-primary);
+            background: var(--brand-light);
+        }
+
+        .progress-line-track {
+            width: 100%;
+            height: 4px;
+            background: var(--border-subtle);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #6366f1 0%, #a855f7 100%);
+            transition: width 0.2s ease;
+        }
+
+        .examples-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .example-card-item {
+            background: var(--bg-subtle);
+            border: 1.5px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            font-size: 0.94rem;
+            color: var(--text-body);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .example-card-item:hover {
+            background: var(--brand-light);
+            border-color: var(--brand-primary);
+            color: var(--text-title);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ==========================================================================
+           6. PERSONA SELECTION GRID
+           ========================================================================== */
+        .selection-bar {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .selection-title h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+        }
+
+        .selection-title p {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+        }
+
+        .selection-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .count-pill-badge {
+            background: linear-gradient(135deg, var(--brand-light) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1.5px solid rgba(99, 102, 241, 0.3);
+            color: var(--brand-primary);
+            padding: 8px 18px;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-toggle-all {
+            background: var(--bg-subtle);
+            border: 1.5px solid var(--border-subtle);
+            color: var(--text-title);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-toggle-all:hover {
+            border-color: var(--brand-primary);
+            color: var(--brand-primary);
+            background: var(--brand-light);
+        }
+
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .persona-card {
+            background: var(--bg-surface);
+            border: 2px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .persona-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--brand-primary);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+
+        .persona-card:hover {
+            border-color: var(--brand-primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .persona-card.selected {
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 1px var(--brand-primary), var(--shadow-lg);
+            background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(99, 102, 241, 0.02) 100%);
+        }
+
+        .persona-card.selected::before {
+            opacity: 1;
+        }
+
+        .persona-card[data-id="technical"] .persona-tag-badge {
+            background: var(--persona-tech-bg);
+            color: var(--persona-tech-accent);
+            border: 1px solid var(--persona-tech-border);
+        }
+
+        .persona-card[data-id="technical"].selected {
+            border-color: var(--persona-tech-accent);
+            box-shadow: 0 0 0 1px var(--persona-tech-accent), var(--shadow-lg);
+        }
+
+        .persona-card[data-id="technical"].selected::before {
+            background: var(--persona-tech-accent);
+        }
+
+        .persona-card[data-id="hr"] .persona-tag-badge {
+            background: var(--persona-hr-bg);
+            color: var(--persona-hr-accent);
+            border: 1px solid var(--persona-hr-border);
+        }
+
+        .persona-card[data-id="hr"].selected {
+            border-color: var(--persona-hr-accent);
+            box-shadow: 0 0 0 1px var(--persona-hr-accent), var(--shadow-lg);
+        }
+
+        .persona-card[data-id="hr"].selected::before {
+            background: var(--persona-hr-accent);
+        }
+
+        .persona-card[data-id="academic"] .persona-tag-badge {
+            background: var(--persona-acad-bg);
+            color: var(--persona-acad-accent);
+            border: 1px solid var(--persona-acad-border);
+        }
+
+        .persona-card[data-id="academic"].selected {
+            border-color: var(--persona-acad-accent);
+            box-shadow: 0 0 0 1px var(--persona-acad-accent), var(--shadow-lg);
+        }
+
+        .persona-card[data-id="academic"].selected::before {
+            background: var(--persona-acad-accent);
+        }
+
+        .persona-card[data-id="entrepreneurship"] .persona-tag-badge {
+            background: var(--persona-ent-bg);
+            color: var(--persona-ent-accent);
+            border: 1px solid var(--persona-ent-border);
+        }
+
+        .persona-card[data-id="entrepreneurship"].selected {
+            border-color: var(--persona-ent-accent);
+            box-shadow: 0 0 0 1px var(--persona-ent-accent), var(--shadow-lg);
+        }
+
+        .persona-card[data-id="entrepreneurship"].selected::before {
+            background: var(--persona-ent-accent);
+        }
+
+        .card-top-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .persona-avatar-box {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--bg-subtle) 0%, rgba(99, 102, 241, 0.05) 100%);
+        }
+
+        .ui-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2.5px solid var(--border-subtle);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: transparent;
+            transition: var(--transition);
+            background: var(--bg-surface);
+        }
+
+        .persona-card.selected .ui-checkbox {
+            background: var(--brand-primary);
+            border-color: var(--brand-primary);
+            color: #ffffff;
+        }
+
+        .persona-card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-title);
+        }
+
+        .persona-card-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .persona-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .persona-tag-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+        }
+
+        .inspect-link-btn {
+            background: transparent;
+            color: var(--brand-primary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .inspect-link-btn:hover {
+            color: var(--brand-primary-hover);
+        }
+
+        /* ==========================================================================
+           7. GENERATE BUTTON & ERROR ALERT
+           ========================================================================== */
+        .action-flex {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-submit-main {
+            width: 100%;
+            max-width: 420px;
+            padding: 16px 36px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: var(--radius-md);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-submit-main:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.45);
+        }
+
+        .btn-submit-main:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-submit-main:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Enhanced Alert Box */
+        .alert-error-box {
+            display: none;
+            background: linear-gradient(135deg, #fef2f2 0%, rgba(254, 226, 226, 0.5) 100%);
+            border: 1.5px solid #fecaca;
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            color: #991b1b;
+            font-size: 0.94rem;
+            font-weight: 600;
+            width: 100%;
+            max-width: 640px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.12);
+        }
+
+        body.dark-mode .alert-error-box {
+            background: rgba(127, 29, 29, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+        }
+
+        .alert-error-box.show {
+            display: flex;
+        }
+
+        .alert-msg-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-action-btn {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.83rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .alert-action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ==========================================================================
+           8. CLEAN LOADING STATE
+           ========================================================================== */
+        .loading-state-box {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .loading-state-box.show {
+            display: flex;
+        }
+
+        .loading-spinner-ring {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-subtle);
+            border-top: 4px solid var(--brand-primary);
+            border-right: 4px solid #a855f7;
+            border-radius: 50%;
+            animation: spinRing 1.2s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spinRing {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-title);
+        }
+
+        .loading-subtext {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+        }
+
+        /* ==========================================================================
+           9. RESULTS SECTION & COMPARISON TABLE
+           ========================================================================== */
+        .results-section-container {
+            display: none;
+            margin-top: 48px;
+        }
+
+        .results-section-container.show {
+            display: block;
+        }
+
+        .results-header-bar {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .results-header-bar h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #111827 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dark-mode .results-header-bar h2 {
+            background: linear-gradient(135deg, #f1f5f9 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .results-header-bar p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .responses-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 28px;
+            margin-bottom: 40px;
+        }
+
+        .response-card-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .response-card-panel:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card-panel-header {
+            padding: 20px 24px;
+            border-bottom: 2px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, var(--bg-subtle) 0%, rgba(99, 102, 241, 0.02) 100%);
+        }
+
+        .persona-panel-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .persona-panel-icon {
+            font-size: 1.8rem;
+        }
+
+        .persona-panel-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-title);
+        }
+
+        .btn-copy-card {
+            background: var(--bg-surface);
+            border: 1.5px solid var(--border-subtle);
+            color: var(--text-secondary);
+            border-radius: var(--radius-sm);
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .btn-copy-card:hover {
+            color: var(--brand-primary);
+            border-color: var(--brand-primary);
+            background: var(--brand-light);
+        }
+
+        .card-panel-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .content-section-block {
+            background: var(--bg-subtle);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            border-left: 4px solid var(--brand-primary);
+        }
+
+        .response-card-panel[data-persona="technical"] .content-section-block {
+            border-left-color: var(--persona-tech-accent);
+        }
+
+        .response-card-panel[data-persona="hr"] .content-section-block {
+            border-left-color: var(--persona-hr-accent);
+        }
+
+        .response-card-panel[data-persona="academic"] .content-section-block {
+            border-left-color: var(--persona-acad-accent);
+        }
+
+        .response-card-panel[data-persona="entrepreneurship"] .content-section-block {
+            border-left-color: var(--persona-ent-accent);
+        }
+
+        .block-heading {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .block-text {
+            font-size: 0.95rem;
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        .block-text ul {
+            padding-left: 20px;
+        }
+
+        .block-text li {
+            margin-bottom: 8px;
+        }
+
+        /* Comparison Section */
+        .comparison-panel {
+            padding: 32px;
+            margin-bottom: 40px;
+            display: none;
+        }
+
+        .comparison-panel.show {
+            display: block;
+        }
+
+        .comparison-header-group {
+            margin-bottom: 20px;
+        }
+
+        .comparison-header-group h3 {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .comparison-header-group p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .insight-callout {
+            background: linear-gradient(135deg, var(--brand-light) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1.5px solid rgba(99, 102, 241, 0.3);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 28px;
+        }
+
+        .insight-callout-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .insight-callout-text {
+            font-size: 0.97rem;
+            color: var(--text-title);
+            line-height: 1.7;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-subtle);
+            vertical-align: top;
+        }
+
+        .data-table th {
+            background: var(--bg-subtle);
+            font-weight: 700;
+            color: var(--text-title);
+            white-space: nowrap;
+        }
+
+        .aspect-col {
+            font-weight: 700;
+            color: var(--text-title);
+            width: 170px;
+            min-width: 140px;
+            background: var(--bg-subtle) !important;
+        }
+
+        /* Bottom Action Buttons */
+        .bottom-actions-flex {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .btn-outline-action {
+            padding: 12px 24px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-title);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-outline-action:hover {
+            border-color: var(--brand-primary);
+            color: var(--brand-primary);
+            transform: translateY(-1px);
+        }
+
+        /* ==========================================================================
+           10. PROMPT CARD SYSTEM ARCHITECTURE
+           ========================================================================== */
+        .prompt-system-section {
+            margin-top: 60px;
+            padding-top: 60px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .prompt-system-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .prompt-system-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .prompt-system-header p {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .elements-flex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .element-item-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .element-badge-num {
+            width: 28px;
+            height: 28px;
+            background: var(--brand-primary);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin: 0 auto 10px;
+        }
+
+        .element-item-title {
+            font-weight: 700;
+            font-size: 0.98rem;
+            margin-bottom: 4px;
+        }
+
+        .element-item-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Accordion List */
+        .prompt-accordions-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .prompt-accordion-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .accordion-btn {
+            width: 100%;
+            padding: 18px 22px;
+            background: var(--bg-surface);
+            color: var(--text-title);
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .accordion-btn:hover {
+            background: var(--bg-subtle);
+        }
+
+        .accordion-arrow {
+            transition: transform var(--transition);
+            color: var(--text-muted);
+        }
+
+        .prompt-accordion-item.active .accordion-arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content-panel {
+            display: none;
+            padding: 22px;
+            border-top: 1px solid var(--border-subtle);
+            background: var(--bg-subtle);
+        }
+
+        .prompt-accordion-item.active .accordion-content-panel {
+            display: block;
+        }
+
+        .fields-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .field-card-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+        }
+
+        .field-tag-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--brand-primary);
+            margin-bottom: 6px;
+        }
+
+        .field-tag-value {
+            font-size: 0.88rem;
+            color: var(--text-body);
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+
+        /* ==========================================================================
+           11. MODAL DIALOG
+           ========================================================================== */
+        .modal-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal-mask.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 540px;
+            padding: 36px;
+            box-shadow: var(--shadow-xl);
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .modal-mask.open .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-title);
+        }
+
+        .close-btn-icon {
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 1.6rem;
+            line-height: 1;
+            transition: var(--transition);
+        }
+
+        .close-btn-icon:hover {
+            color: var(--brand-primary);
+        }
+
+        .form-group-item {
+            margin-bottom: 20px;
+        }
+
+        .form-label-text {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-body);
+            margin-bottom: 8px;
+        }
+
+        .input-flex-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-control-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-title);
+            font-family: var(--font-family);
+            font-size: 0.95rem;
+        }
+
+        .form-control-input:focus {
+            border-color: var(--brand-primary);
+            outline: none;
+        }
+
+        .toggle-pwd-btn {
+            position: absolute;
+            right: 12px;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .form-control-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-title);
+            font-family: var(--font-family);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-hint-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .btn-detect-models {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+            background: var(--brand-light);
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .btn-detect-models:hover {
+            background: var(--brand-primary);
+            color: #ffffff;
+        }
+
+        .modal-buttons-flex {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        /* ==========================================================================
+           12. FOOTER & MEDIA STYLES
+           ========================================================================== */
+        .footer {
+            margin-top: auto;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-subtle);
+            background: linear-gradient(135deg, var(--bg-subtle) 0%, var(--bg-page) 100%);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-links-flex {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links-flex a {
+            color: var(--brand-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .footer-links-flex a:hover {
+            color: var(--brand-primary-hover);
+        }
+
+        @media (max-width: 900px) {
+            .hero-headline {
+                font-size: 2.4rem;
+            }
+
+            .hero-subline {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .workspace-card {
+                padding: 20px;
+            }
+
+            .hero-headline {
+                font-size: 1.9rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .personas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+
+            .header,
+            .hero,
+            .workspace-card,
+            .action-flex,
+            .bottom-actions-flex,
+            .prompt-system-section,
+            .footer,
+            .modal-mask,
+            .btn-copy-card {
+                display: none !important;
+            }
+
+            .results-section-container,
+            .comparison-panel {
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .response-card-panel,
+            .comparison-panel {
+                background: #ffffff !important;
+                border: 1px solid #cccccc !important;
+                box-shadow: none !important;
+                color: #000000 !important;
+                page-break-inside: avoid;
+                margin-bottom: 20px !important;
+            }
+
+            .card-panel-header,
+            .content-section-block,
+            .data-table th,
+            .data-table td {
+                background: #f8fafc !important;
+                color: #000000 !important;
+                border-color: #cbd5e1 !important;
+            }
+
+            .block-text,
+            .insight-callout-text {
+                color: #333333 !important;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4 {
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==========================================================================
+         HEADER
+         ========================================================================== -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="#hero" class="brand-logo">
+                <div class="brand-icon">🚀</div>
+                <span>AI Career Counsellor</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#question-section" class="nav-link">Home</a></li>
+                    <li><a href="#persona-selection" class="nav-link">Counsellors</a></li>
+                    <li><a href="#prompt-system-section" class="nav-link">How It Works</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-right-group">
+                <button class="theme-toggle-btn" onclick="toggleThemeMode()" title="Toggle Light/Dark Theme">
+                    <span id="themeModeIcon">☀️</span> <span id="themeModeText">Light</span>
+                </button>
+
+                <button class="api-status-btn" id="apiKeyBadgeBtn" onclick="openApiModal()">
+                    <span class="dot-indicator" id="apiKeyStatusDot"></span>
+                    <span id="apiKeyStatusText">API Key Config</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         API KEY CONFIGURATION MODAL
+         ========================================================================== -->
+    <div class="modal-mask" id="apiModalOverlay">
+        <div class="modal-container">
+            <div class="modal-header-flex">
+                <h3 class="modal-title">🔑 Gemini API Settings</h3>
+                <button class="close-btn-icon" onclick="closeApiModal()">&times;</button>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">
+                Enter your Google Gemini API key to enable AI career recommendations. Saved locally in your browser
+                storage.
+            </p>
+
+            <div class="form-group-item">
+                <label class="form-label-text" for="apiKeyInput">Gemini API Key</label>
+                <div class="input-flex-wrap">
+                    <input type="password" id="apiKeyInput" class="form-control-input" placeholder="AIzaSy..."
+                        autocomplete="off">
+                    <button type="button" class="toggle-pwd-btn" onclick="toggleApiKeyVisibility()">Show</button>
+                </div>
+                <p class="form-hint-note">Get a free key at <a href="https://aistudio.google.com/app/apikey"
+                        target="_blank" rel="noopener">Google AI Studio</a>.</p>
+            </div>
+
+            <div class="form-group-item">
+                <div class="form-label-text">
+                    <span>Gemini Model</span>
+                    <button type="button" class="btn-detect-models" onclick="autoDetectKeyModels()">⚡ Auto-Detect My
+                        Models</button>
+                </div>
+                <select id="modelSelect" class="form-control-select" onchange="handleModelSelectChange()">
+                    <option value="gemini-3.6-flash">Gemini 3.6 Flash (Latest)</option>
+                    <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                    <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                    <option value="gemini-1.5-flash">Gemini 1.5 Flash (Recommended)</option>
+                    <option value="gemini-2.5-flash-preview-tts">Gemini 2.5 Flash TTS</option>
+                    <option value="gemma-4-26b-a4b-it">Gemma 4 26B</option>
+                    <option value="custom">-- Enter Custom Model Name --</option>
+                </select>
+
+                <div id="customModelBox" style="display: none; margin-top: 10px;">
+                    <input type="text" id="customModelInput" class="form-control-input"
+                        placeholder="e.g. gemini-3.6-flash or gemma-4-26b-a4b-it">
+                </div>
+
+                <p class="form-hint-note" id="detectStatusText">Latest Gemini 3.6 Flash selected. Auto-falls back if key
+                    lacks access.</p>
+            </div>
+
+            <div class="modal-buttons-flex">
+                <button class="btn-outline-action" style="padding: 10px 20px;" onclick="closeApiModal()">Cancel</button>
+                <button class="btn-submit-main" style="max-width: fit-content; padding: 10px 22px; font-size: 0.95rem;"
+                    onclick="saveApiKey()">Save Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         HERO SECTION
+         ========================================================================== -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span>✨</span>
+                <span>Powered by Gemini AI</span>
+            </div>
+            <h1 class="hero-headline">Find Your Career Direction with AI</h1>
+            <p class="hero-subline">One question. Multiple expert perspectives.</p>
+            <p class="hero-desc">
+                Get personalized career guidance from specialized AI counsellors. Compare technical, placement,
+                academic, and startup advice in seconds.
+            </p>
+
+            <div class="hero-features">
+                <div class="feature-tag">
+                    <span>👨‍💻 👔 🎓 🚀</span>
+                    <span><strong>4 Specialized</strong> AI Personas</span>
+                </div>
+                <div class="feature-tag">
+                    <span>📊</span>
+                    <span><strong>1-Click</strong> Comparison Matrix</span>
+                </div>
+                <div class="feature-tag">
+                    <span>🔒</span>
+                    <span><strong>100% Client-Side</strong> Private</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         MAIN WORKSPACE
+         ========================================================================== -->
+    <main class="container" style="padding-bottom: 60px;">
+
+        <!-- QUESTION INPUT CARD -->
+        <div class="card workspace-card" id="question-section">
+            <div class="input-header">
+                <div class="input-title">
+                    <span>💬</span>
+                    <span>What's on your mind?</span>
+                </div>
+                <span class="char-counter" id="charCounter">0 / 1000</span>
+            </div>
+
+            <div class="textarea-box">
+                <textarea id="questionInput" class="main-textarea"
+                    placeholder="Ask any career question... (e.g. Should I prepare for campus placements or apply for MS abroad?)"
+                    maxlength="1000"></textarea>
+
+                <div class="textarea-actions">
+                    <button class="input-tool-btn" id="voiceInputBtn" onclick="toggleVoiceRecognition()"
+                        title="Speak your question">
+                        <span id="micIcon">🎙️</span> <span id="micText">Voice</span>
+                    </button>
+                    <button class="input-tool-btn" id="clearInputBtn" onclick="clearQuestionInput()"
+                        style="display: none;">
+                        Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="progress-line-track">
+                <div class="progress-line-fill" id="progressBarFill"></div>
+            </div>
+
+            <!-- EXAMPLE QUESTIONS -->
+            <div class="examples-label">Popular Student Queries (Click to try):</div>
+
+            <div class="examples-grid">
+                <div class="example-card-item" onclick="useExampleQuestion(1)">
+                    <span style="font-size: 1.1rem;">⚖️</span>
+                    <div>
+                        <strong>Placements vs Higher Studies</strong>
+                        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 2px;">"Should I
+                            prepare for placements or pursue higher studies?"</div>
+                    </div>
+                </div>
+
+                <div class="example-card-item" onclick="useExampleQuestion(2)">
+                    <span style="font-size: 1.1rem;">💻</span>
+                    <div>
+                        <strong>Python & Projects Portfolio</strong>
+                        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 2px;">"I know Python
+                            but do not have any projects. What should I do?"</div>
+                    </div>
+                </div>
+
+                <div class="example-card-item" onclick="useExampleQuestion(3)">
+                    <span style="font-size: 1.1rem;">🎯</span>
+                    <div>
+                        <strong>AI vs Data Science vs Dev</strong>
+                        <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 2px;">"Should I become
+                            an AI Engineer, Data Scientist or Software Developer?"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERSONA SELECTION GRID -->
+        <div class="card workspace-card" id="persona-selection">
+            <div class="selection-bar">
+                <div class="selection-title">
+                    <h2>Choose Your Career Counsellors</h2>
+                    <p>Select one or more experts to get different perspectives on your career question.</p>
+                </div>
+                <div class="selection-actions">
+                    <span class="count-pill-badge" id="selectedCounter">0 counsellors selected</span>
+                    <button class="btn-toggle-all" id="selectAllBtn" onclick="toggleSelectAllPersonas()">Select
+                        All</button>
+                </div>
+            </div>
+
+            <!-- PERSONAS GRID -->
+            <div class="personas-grid" id="personasGrid">
+
+                <!-- Technical Persona Card -->
+                <div class="persona-card" data-id="technical" onclick="togglePersonaSelection('technical')" tabindex="0"
+                    role="checkbox" aria-checked="false">
+                    <div>
+                        <div class="card-top-row">
+                            <div class="persona-avatar-box">👨‍💻</div>
+                            <div class="ui-checkbox" id="chk-technical">✓</div>
+                        </div>
+                        <div class="persona-card-title">Technical Career Counsellor</div>
+                        <div class="persona-card-desc">"AI/ML • Programming • DSA • Projects"</div>
+                    </div>
+                    <div class="persona-card-footer">
+                        <span class="persona-tag-badge">Technical Specialist</span>
+                        <button type="button" class="inspect-link-btn"
+                            onclick="event.stopPropagation(); openPersonaPromptCard('technical')">Inspect Card</button>
+                    </div>
+                </div>
+
+                <!-- HR Persona Card -->
+                <div class="persona-card" data-id="hr" onclick="togglePersonaSelection('hr')" tabindex="0"
+                    role="checkbox" aria-checked="false">
+                    <div>
+                        <div class="card-top-row">
+                            <div class="persona-avatar-box">👔</div>
+                            <div class="ui-checkbox" id="chk-hr">✓</div>
+                        </div>
+                        <div class="persona-card-title">HR & Placement Counsellor</div>
+                        <div class="persona-card-desc">"Resume • Interviews • Recruitment • Employability"</div>
+                    </div>
+                    <div class="persona-card-footer">
+                        <span class="persona-tag-badge">Placement Expert</span>
+                        <button type="button" class="inspect-link-btn"
+                            onclick="event.stopPropagation(); openPersonaPromptCard('hr')">Inspect Card</button>
+                    </div>
+                </div>
+
+                <!-- Academic Persona Card -->
+                <div class="persona-card" data-id="academic" onclick="togglePersonaSelection('academic')" tabindex="0"
+                    role="checkbox" aria-checked="false">
+                    <div>
+                        <div class="card-top-row">
+                            <div class="persona-avatar-box">🎓</div>
+                            <div class="ui-checkbox" id="chk-academic">✓</div>
+                        </div>
+                        <div class="persona-card-title">Academic & Research Counsellor</div>
+                        <div class="persona-card-desc">"MS/M.Tech • PhD • Research • Certifications"</div>
+                    </div>
+                    <div class="persona-card-footer">
+                        <span class="persona-tag-badge">Higher Studies Advisor</span>
+                        <button type="button" class="inspect-link-btn"
+                            onclick="event.stopPropagation(); openPersonaPromptCard('academic')">Inspect Card</button>
+                    </div>
+                </div>
+
+                <!-- Entrepreneurship Persona Card -->
+                <div class="persona-card" data-id="entrepreneurship"
+                    onclick="togglePersonaSelection('entrepreneurship')" tabindex="0" role="checkbox"
+                    aria-checked="false">
+                    <div>
+                        <div class="card-top-row">
+                            <div class="persona-avatar-box">🚀</div>
+                            <div class="ui-checkbox" id="chk-entrepreneurship">✓</div>
+                        </div>
+                        <div class="persona-card-title">Entrepreneurship Counsellor</div>
+                        <div class="persona-card-desc">"Startups • Business • Freelancing • Products"</div>
+                    </div>
+                    <div class="persona-card-footer">
+                        <span class="persona-tag-badge">Venture Strategist</span>
+                        <button type="button" class="inspect-link-btn"
+                            onclick="event.stopPropagation(); openPersonaPromptCard('entrepreneurship')">Inspect
+                            Card</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ACTION FLEX -->
+            <div class="action-flex">
+                <button class="btn-submit-main" id="generateBtn" onclick="handleGenerateCareerAdvice()">
+                    <span>✨</span>
+                    <span>Get Career Advice</span>
+                </button>
+
+                <!-- ENHANCED ALERT BOX -->
+                <div class="alert-error-box" id="errorAlert">
+                    <div class="alert-msg-content">
+                        <span style="font-size: 1.2rem;">⚠️</span>
+                        <span id="errorMessage">Please select at least one persona.</span>
+                    </div>
+                    <button class="alert-action-btn" id="errorActionBtn" onclick="openApiModal()"
+                        style="display: none;">🔑 Fix API Key</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOADING STATE -->
+        <div class="loading-state-box" id="loadingWrapper">
+            <div class="loading-spinner-ring"></div>
+            <div class="loading-heading">Generating personalized career advice...</div>
+            <div class="loading-subtext" id="loadingStepText">Synthesizing insights from selected AI personas using
+                Gemini</div>
+        </div>
+
+        <!-- RESULTS SECTION -->
+        <section class="results-section-container" id="resultsWrapper">
+            <div class="results-header-bar">
+                <h2>Your Personalized Career Guidance</h2>
+                <p>Tailored recommendations from your selected specialized counsellors</p>
+            </div>
+
+            <!-- RESPONSES GRID -->
+            <div class="responses-cards-grid" id="responsesGrid"></div>
+
+            <!-- COMPARISON PANEL -->
+            <div class="card comparison-panel" id="comparisonCard">
+                <div class="comparison-header-group">
+                    <h3>Compare Expert Perspectives</h3>
+                    <p>Side-by-side comparative summary across selected career domains</p>
+                </div>
+
+                <div class="insight-callout">
+                    <div class="insight-callout-title">
+                        <span>💡</span>
+                        <span>Overall Strategic Insight</span>
+                    </div>
+                    <p class="insight-callout-text" id="comparisonSummaryText">Loading summary...</p>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead id="comparisonTableHead"></thead>
+                        <tbody id="comparisonTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- BOTTOM UTILITY BUTTONS -->
+            <div class="bottom-actions-flex">
+                <button class="btn-outline-action" onclick="resetApplicationState()">
+                    <span>🔄</span>
+                    <span>Ask Another Question</span>
+                </button>
+                <button class="btn-outline-action" onclick="triggerBrowserPrint()">
+                    <span>🖨️</span>
+                    <span>Print Advice</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- PROMPT SYSTEM ARCHITECTURE SECTION -->
+        <section class="prompt-system-section" id="prompt-system-section">
+            <div class="prompt-system-header">
+                <h2>How Our AI Personas Work</h2>
+                <p>
+                    Each counsellor persona is engineered using a structured 6-element Prompt Card framework to
+                    guarantee reliable, realistic, and non-generic career guidance.
+                </p>
+            </div>
+
+            <!-- 6 ELEMENTS GRID -->
+            <div class="elements-flex-grid">
+                <div class="element-item-card">
+                    <div class="element-badge-num">1</div>
+                    <div class="element-item-title">Role</div>
+                    <div class="element-item-desc">Defines expert identity and domain depth</div>
+                </div>
+                <div class="element-item-card">
+                    <div class="element-badge-num">2</div>
+                    <div class="element-item-title">Audience</div>
+                    <div class="element-item-desc">Targets student experience level</div>
+                </div>
+                <div class="element-item-card">
+                    <div class="element-badge-num">3</div>
+                    <div class="element-item-title">Context</div>
+                    <div class="element-item-desc">Establishes student goals & scenario</div>
+                </div>
+                <div class="element-item-card">
+                    <div class="element-badge-num">4</div>
+                    <div class="element-item-title">Format</div>
+                    <div class="element-item-desc">Structures response headings & items</div>
+                </div>
+                <div class="element-item-card">
+                    <div class="element-badge-num">5</div>
+                    <div class="element-item-title">Constraints</div>
+                    <div class="element-item-desc">Prevents false claims & job guarantees</div>
+                </div>
+                <div class="element-item-card">
+                    <div class="element-badge-num">6</div>
+                    <div class="element-item-title">Language</div>
+                    <div class="element-item-desc">Ensures clean, simple English</div>
+                </div>
+            </div>
+
+            <!-- PROMPT ACCORDIONS LIST -->
+            <div class="prompt-accordions-wrapper" id="promptAccordionsGroup"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p><strong>AI Persona Career Counsellor</strong> — University Assignment Project</p>
+            <p>Built with HTML, CSS, Vanilla JavaScript & Google Gemini API</p>
+            <div class="footer-links-flex">
+                <a href="#question-section" style="color: var(--brand-primary); text-decoration: none;">Ask Question</a>
+                <a href="#persona-selection" style="color: var(--brand-primary); text-decoration: none;">Select
+                    Personas</a>
+                <a href="#prompt-system-section" style="color: var(--brand-primary); text-decoration: none;">Prompt
+                    Architecture</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC
+         ========================================================================== -->
+    <script>
+        // ==========================================================================
+        // 1. PERSONAS & PROMPT CARDS REPOSITORY
+        // ==========================================================================
+        const PERSONAS = {
+            technical: {
+                id: "technical",
+                name: "Technical Career Counsellor",
+                icon: "👨‍💻",
+                badge: "Technical Specialist",
+                tagline: "AI/ML • Programming • DSA • Projects",
+                role: "Senior Technical Career Counsellor specializing in AI, Machine Learning, Programming and Software Engineering.",
+                audience: "Undergraduate ICT, Computer Science and engineering students.",
+                context: "The student wants practical guidance about technical skills, programming, projects, AI/ML and technical career opportunities.",
+                format: "1. Main Recommendation\n2. Skills to Develop\n3. Project Suggestions\n4. Career Roadmap\n5. Suggested Next Steps",
+                constraints: "Give practical and realistic advice. Do not guarantee jobs. Do not guarantee salaries. Avoid unsupported assumptions. Focus on actionable technical guidance. Keep recommendations suitable for undergraduate students.",
+                language: "Simple English.",
+                expertise: ["Programming", "DSA", "AI/ML", "Software Development", "Technical Skills", "Projects", "Technical Career Roadmap"],
+                sectionTitles: {
+                    mainRecommendation: "Main Recommendation",
+                    skillsToDevelop: "Skills to Develop",
+                    projectSuggestions: "Project Suggestions",
+                    careerRoadmap: "Career Roadmap",
+                    suggestedNextSteps: "Suggested Next Steps"
+                }
+            },
+            hr: {
+                id: "hr",
+                name: "HR & Placement Counsellor",
+                icon: "👔",
+                badge: "Placement Expert",
+                tagline: "Resume • Interviews • Recruitment • Employability",
+                role: "Senior HR and Placement Career Counsellor specializing in employability, recruitment and interview preparation.",
+                audience: "Undergraduate students preparing for internships and campus placements.",
+                context: "The student wants guidance about employability, resume preparation, interviews, internships, communication and recruitment.",
+                format: "1. Main Recommendation\n2. Resume Advice\n3. Interview Preparation\n4. Employability Skills\n5. Suggested Next Steps",
+                constraints: "Give realistic placement advice. Do not guarantee job offers. Do not guarantee salary packages. Focus on recruiter expectations. Avoid unsupported claims. Keep advice practical.",
+                language: "Simple English.",
+                expertise: ["Resume", "Interviews", "Communication", "Internships", "Recruitment", "Employability", "Placement Preparation"],
+                sectionTitles: {
+                    mainRecommendation: "Main Recommendation",
+                    resumeAdvice: "Resume Advice",
+                    interviewPreparation: "Interview Preparation",
+                    employabilitySkills: "Employability Skills",
+                    suggestedNextSteps: "Suggested Next Steps"
+                }
+            },
+            academic: {
+                id: "academic",
+                name: "Academic & Research Counsellor",
+                icon: "🎓",
+                badge: "Higher Studies Advisor",
+                tagline: "MS/M.Tech • PhD • Research • Certifications",
+                role: "Senior Academic and Research Career Counsellor specializing in higher education, research and academic career planning.",
+                audience: "Undergraduate ICT and Computer Science students considering higher studies.",
+                context: "The student wants guidance about MS, M.Tech, PhD, research, certifications and academic preparation.",
+                format: "1. Main Recommendation\n2. Higher Study Options\n3. Research Direction\n4. Preparation Requirements\n5. Suggested Next Steps",
+                constraints: "Do not guarantee admission. Do not guarantee scholarships. Do not guarantee research outcomes. Consider academic interests and preparation. Give realistic guidance. Avoid unsupported assumptions.",
+                language: "Simple English.",
+                expertise: ["MS", "M.Tech", "PhD", "Research", "Certifications", "Higher Studies", "Academic Preparation"],
+                sectionTitles: {
+                    mainRecommendation: "Main Recommendation",
+                    higherStudyOptions: "Higher Study Options",
+                    researchDirection: "Research Direction",
+                    preparationRequirements: "Preparation Requirements",
+                    suggestedNextSteps: "Suggested Next Steps"
+                }
+            },
+            entrepreneurship: {
+                id: "entrepreneurship",
+                name: "Entrepreneurship Counsellor",
+                icon: "🚀",
+                badge: "Venture Strategist",
+                tagline: "Startups • Business • Freelancing • Products",
+                role: "Experienced Entrepreneurship and Startup Career Counsellor specializing in startups, product development, freelancing and business opportunities.",
+                audience: "Undergraduate students interested in entrepreneurship and independent careers.",
+                context: "The student wants to explore startup ideas, business opportunities, freelancing, products and entrepreneurship.",
+                format: "1. Main Recommendation\n2. Business Opportunities\n3. Product Ideas\n4. Market Validation\n5. Entrepreneurship Roadmap\n6. Suggested Next Steps",
+                constraints: "Do not guarantee business success. Do not guarantee revenue. Encourage validation before investment. Give practical and realistic advice. Consider the student's current skills. Avoid unsupported assumptions.",
+                language: "Simple English.",
+                expertise: ["Startups", "Business Ideas", "Freelancing", "Product Development", "Market Validation", "Entrepreneurship Skills"],
+                sectionTitles: {
+                    mainRecommendation: "Main Recommendation",
+                    businessOpportunities: "Business Opportunities",
+                    productIdeas: "Product Ideas",
+                    marketValidation: "Market Validation",
+                    entrepreneurshipRoadmap: "Entrepreneurship Roadmap",
+                    suggestedNextSteps: "Suggested Next Steps"
+                }
+            }
+        };
+
+        const EXAMPLE_QUESTIONS = {
+            1: "Should I prepare for placements or pursue higher studies?",
+            2: "I know Python but do not have any projects. What should I do?",
+            3: "Should I become an AI Engineer, Data Scientist or Software Developer?"
+        };
+
+        const state = {
+            apiKey: localStorage.getItem("gemini_api_key") || "",
+            selectedModel: localStorage.getItem("gemini_model") || "gemini-3.6-flash",
+            selectedPersonas: new Set(),
+            questionText: "",
+            isLoading: false,
+            responsesData: null,
+            speechRecognition: null,
+            theme: localStorage.getItem("ui_theme") || "light"
+        };
+
+        // Standard Text Generation Models Cascade
+        const STRICT_TEXT_MODELS = [
+            "gemini-3.6-flash",
+            "gemini-2.5-flash",
+            "gemini-2.0-flash",
+            "gemini-1.5-flash",
+            "gemini-2.5-flash-preview-tts",
+            "gemma-4-26b-a4b-it",
+            "gemini-1.5-pro"
+        ];
+
+        // ==========================================================================
+        // 2. INITIALIZATION & THEME TOGGLE
+        // ==========================================================================
+        document.addEventListener("DOMContentLoaded", () => {
+            initTheme();
+            initApiKeyStatus();
+            initTextareaEvents();
+            initKeyboardAccessibility();
+            renderPromptAccordions();
+            updateSelectedCounter();
+            initSpeechRecognition();
+        });
+
+        function initTheme() {
+            if (state.theme === "dark") {
+                document.body.classList.add("dark-mode");
+                document.getElementById("themeModeIcon").textContent = "🌙";
+                document.getElementById("themeModeText").textContent = "Dark";
+            } else {
+                document.body.classList.remove("dark-mode");
+                document.getElementById("themeModeIcon").textContent = "☀️";
+                document.getElementById("themeModeText").textContent = "Light";
+            }
+        }
+
+        function toggleThemeMode() {
+            if (document.body.classList.contains("dark-mode")) {
+                document.body.classList.remove("dark-mode");
+                state.theme = "light";
+                document.getElementById("themeModeIcon").textContent = "☀️";
+                document.getElementById("themeModeText").textContent = "Light";
+            } else {
+                document.body.classList.add("dark-mode");
+                state.theme = "dark";
+                document.getElementById("themeModeIcon").textContent = "🌙";
+                document.getElementById("themeModeText").textContent = "Dark";
+            }
+            localStorage.setItem("ui_theme", state.theme);
+        }
+
+        function initApiKeyStatus() {
+            const apiKeyInput = document.getElementById("apiKeyInput");
+            const modelSelect = document.getElementById("modelSelect");
+            const statusDot = document.getElementById("apiKeyStatusDot");
+            const statusText = document.getElementById("apiKeyStatusText");
+
+            if (state.apiKey) {
+                apiKeyInput.value = state.apiKey;
+                statusDot.classList.add("active");
+                statusText.textContent = "API Key Active";
+            } else {
+                statusDot.classList.remove("active");
+                statusText.textContent = "API Key Required";
+            }
+
+            if (state.selectedModel) {
+                if (["gemini-3.6-flash", "gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash", "gemini-2.5-flash-preview-tts", "gemma-4-26b-a4b-it"].includes(state.selectedModel)) {
+                    modelSelect.value = state.selectedModel;
+                    document.getElementById("customModelBox").style.display = "none";
+                } else {
+                    modelSelect.value = "custom";
+                    document.getElementById("customModelBox").style.display = "block";
+                    document.getElementById("customModelInput").value = state.selectedModel;
+                }
+            }
+        }
+
+        function handleModelSelectChange() {
+            const select = document.getElementById("modelSelect");
+            const customBox = document.getElementById("customModelBox");
+            if (select.value === "custom") {
+                customBox.style.display = "block";
+                document.getElementById("customModelInput").focus();
+            } else {
+                customBox.style.display = "none";
+            }
+        }
+
+        function initTextareaEvents() {
+            const textarea = document.getElementById("questionInput");
+            const charCounter = document.getElementById("charCounter");
+            const clearBtn = document.getElementById("clearInputBtn");
+            const progressFill = document.getElementById("progressBarFill");
+
+            textarea.addEventListener("input", (e) => {
+                state.questionText = e.target.value;
+                const len = state.questionText.length;
+                charCounter.textContent = `${len} / 1000`;
+
+                const pct = Math.min(100, (len / 1000) * 100);
+                progressFill.style.width = `${pct}%`;
+
+                if (len > 900) {
+                    charCounter.className = "char-counter exceeded";
+                    progressFill.style.background = "#ef4444";
+                } else if (len > 750) {
+                    charCounter.className = "char-counter warning";
+                    progressFill.style.background = "var(--persona-ent-accent)";
+                } else {
+                    charCounter.className = "char-counter";
+                    progressFill.style.background = "var(--brand-primary)";
+                }
+
+                clearBtn.style.display = len > 0 ? "inline-flex" : "none";
+                hideErrorAlert();
+            });
+        }
+
+        function initKeyboardAccessibility() {
+            document.querySelectorAll(".persona-card").forEach(card => {
+                card.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        const id = card.getAttribute("data-id");
+                        togglePersonaSelection(id);
+                    }
+                });
+            });
+        }
+
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                state.speechRecognition = new SpeechRecognition();
+                state.speechRecognition.continuous = false;
+                state.speechRecognition.interimResults = false;
+                state.speechRecognition.lang = 'en-US';
+
+                state.speechRecognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    const textarea = document.getElementById("questionInput");
+                    textarea.value = transcript;
+                    textarea.dispatchEvent(new Event("input"));
+                    stopVoiceRecognition();
+                };
+
+                state.speechRecognition.onerror = () => { stopVoiceRecognition(); };
+                state.speechRecognition.onend = () => { stopVoiceRecognition(); };
+            } else {
+                document.getElementById("voiceInputBtn").style.display = "none";
+            }
+        }
+
+        function toggleVoiceRecognition() {
+            if (!state.speechRecognition) return;
+            const micText = document.getElementById("micText");
+            if (micText.textContent === "Listening...") {
+                state.speechRecognition.stop();
+                stopVoiceRecognition();
+            } else {
+                micText.textContent = "Listening...";
+                document.getElementById("micIcon").textContent = "🔴";
+                state.speechRecognition.start();
+            }
+        }
+
+        function stopVoiceRecognition() {
+            document.getElementById("micText").textContent = "Voice";
+            document.getElementById("micIcon").textContent = "🎙️";
+        }
+
+        async function fetchModelsFromGoogleApi(apiKeyClean) {
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKeyClean}`;
+                const res = await fetch(url);
+                if (!res.ok) return [];
+                const data = await res.json();
+
+                const textModels = (data.models || [])
+                    .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent"))
+                    .map(m => m.name.replace("models/", ""));
+
+                return textModels;
+            } catch (e) {
+                console.warn("Could not query models list from API:", e);
+                return [];
+            }
+        }
+
+        async function autoDetectKeyModels() {
+            const apiKeyInput = document.getElementById("apiKeyInput").value.trim();
+            const detectStatusText = document.getElementById("detectStatusText");
+
+            if (!apiKeyInput) {
+                detectStatusText.textContent = "⚠️ Please enter your API key above first.";
+                return;
+            }
+
+            detectStatusText.textContent = "🔍 Querying available models from Google AI Studio...";
+            const models = await fetchModelsFromGoogleApi(apiKeyInput);
+
+            const select = document.getElementById("modelSelect");
+            if (models.length > 0) {
+                select.innerHTML = "";
+                models.forEach(m => {
+                    select.innerHTML += `<option value="${m}">${m}</option>`;
+                });
+                select.innerHTML += `<option value="custom">-- Enter Custom Model Name --</option>`;
+                select.value = models[0];
+                detectStatusText.textContent = `✅ Successfully found ${models.length} models for your key! Selected: ${models[0]}`;
+            } else {
+                detectStatusText.textContent = "⚠️ Using Gemini 3.6 Flash / 1.5 Flash standard models.";
+            }
+        }
+
+        // Modal Logic
+        function openApiModal() { document.getElementById("apiModalOverlay").classList.add("open"); }
+        function closeApiModal() { document.getElementById("apiModalOverlay").classList.remove("open"); }
+
+        function toggleApiKeyVisibility() {
+            const input = document.getElementById("apiKeyInput");
+            const btn = event.target;
+            if (input.type === "password") {
+                input.type = "text";
+                btn.textContent = "Hide";
+            } else {
+                input.type = "password";
+                btn.textContent = "Show";
+            }
+        }
+
+        function saveApiKey() {
+            const keyInput = document.getElementById("apiKeyInput").value.trim();
+            const selectVal = document.getElementById("modelSelect").value;
+            let modelToSave = selectVal;
+
+            if (selectVal === "custom") {
+                modelToSave = document.getElementById("customModelInput").value.trim() || "gemini-3.6-flash";
+            }
+
+            state.apiKey = keyInput;
+            state.selectedModel = modelToSave;
+
+            if (keyInput) {
+                localStorage.setItem("gemini_api_key", keyInput);
+            } else {
+                localStorage.removeItem("gemini_api_key");
+            }
+            localStorage.setItem("gemini_model", modelToSave);
+
+            initApiKeyStatus();
+            closeApiModal();
+            hideErrorAlert();
+        }
+
+        // Selection Logic
+        function clearQuestionInput() {
+            const textarea = document.getElementById("questionInput");
+            textarea.value = "";
+            state.questionText = "";
+            document.getElementById("charCounter").textContent = "0 / 1000";
+            document.getElementById("charCounter").className = "char-counter";
+            document.getElementById("progressBarFill").style.width = "0%";
+            document.getElementById("clearInputBtn").style.display = "none";
+            textarea.focus();
+        }
+
+        function useExampleQuestion(index) {
+            const question = EXAMPLE_QUESTIONS[index];
+            if (!question) return;
+
+            const textarea = document.getElementById("questionInput");
+            textarea.value = question;
+            textarea.dispatchEvent(new Event("input"));
+            textarea.focus();
+            hideErrorAlert();
+        }
+
+        function togglePersonaSelection(id) {
+            const card = document.querySelector(`.persona-card[data-id="${id}"]`);
+            if (state.selectedPersonas.has(id)) {
+                state.selectedPersonas.delete(id);
+                card.classList.remove("selected");
+                card.setAttribute("aria-checked", "false");
+            } else {
+                state.selectedPersonas.add(id);
+                card.classList.add("selected");
+                card.setAttribute("aria-checked", "true");
+            }
+            updateSelectedCounter();
+            hideErrorAlert();
+        }
+
+        function toggleSelectAllPersonas() {
+            const allIds = Object.keys(PERSONAS);
+            const selectAllBtn = document.getElementById("selectAllBtn");
+
+            if (state.selectedPersonas.size === allIds.length) {
+                state.selectedPersonas.clear();
+                allIds.forEach(id => {
+                    const card = document.querySelector(`.persona-card[data-id="${id}"]`);
+                    card.classList.remove("selected");
+                    card.setAttribute("aria-checked", "false");
+                });
+                selectAllBtn.textContent = "Select All";
+            } else {
+                allIds.forEach(id => {
+                    state.selectedPersonas.add(id);
+                    const card = document.querySelector(`.persona-card[data-id="${id}"]`);
+                    card.classList.add("selected");
+                    card.setAttribute("aria-checked", "true");
+                });
+                selectAllBtn.textContent = "Clear All";
+            }
+            updateSelectedCounter();
+            hideErrorAlert();
+        }
+
+        function updateSelectedCounter() {
+            const count = state.selectedPersonas.size;
+            const counterBadge = document.getElementById("selectedCounter");
+            const selectAllBtn = document.getElementById("selectAllBtn");
+
+            counterBadge.textContent = `${count} counsellor${count === 1 ? "" : "s"} selected`;
+            selectAllBtn.textContent = count === Object.keys(PERSONAS).length ? "Clear All" : "Select All";
+        }
+
+        function openPersonaPromptCard(id) {
+            const element = document.getElementById(`acc-${id}`);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                if (!element.classList.contains("active")) {
+                    element.classList.add("active");
+                }
+            }
+        }
+
+        function showErrorAlert(message, showActionBtn = false) {
+            const alert = document.getElementById("errorAlert");
+            const msg = document.getElementById("errorMessage");
+            const actionBtn = document.getElementById("errorActionBtn");
+
+            msg.textContent = message;
+            actionBtn.style.display = showActionBtn ? "inline-block" : "none";
+            alert.classList.add("show");
+        }
+
+        function hideErrorAlert() {
+            document.getElementById("errorAlert").classList.remove("show");
+        }
+
+        // ==========================================================================
+        // 3. GEMINI API PROMPT BUILDER & CLEAN MODEL EXECUTION
+        // ==========================================================================
+        function buildPersonaPrompt(selectedIds, questionText) {
+            const personasList = selectedIds.map(id => PERSONAS[id]);
+
+            let personasSection = "";
+            personasList.forEach((p, idx) => {
+                personasSection += `
+--------------------------------------------------
+PERSONA ${idx + 1}:
+ID: "${p.id}"
+NAME: "${p.name}"
+
+ROLE:
+${p.role}
+
+AUDIENCE:
+${p.audience}
+
+CONTEXT:
+${p.context}
+
+REQUIRED FORMAT:
+${p.format}
+
+CONSTRAINTS:
+${p.constraints}
+
+LANGUAGE:
+${p.language}
+`;
+            });
+
+            const hasMultiple = selectedIds.length > 1;
+
+            return `
+You are an AI system acting as a multi-perspective Career Counselling Platform for university undergraduate students.
+
+USER QUESTION:
+"${questionText}"
+
+SELECTED PERSONAS (${selectedIds.length}):
+${personasSection}
+
+CRITICAL INSTRUCTIONS:
+1. Generate a tailored response for EVERY selected persona listed above.
+2. Ensure each persona stays strictly within its assigned Role, Context, Expertise, and Format structure.
+3. Recommendations must be realistic, practical, and non-generic for undergraduate students. Never guarantee job offers, salaries, admission, or startup success.
+4. Each persona MUST offer distinct domain perspectives (e.g. Technical focuses on skills/projects; HR focuses on resume/interviews; Academic focuses on MS/research; Entrepreneurship focuses on products/validation).
+5. If the user question is completely outside a persona's area of expertise, respond for that persona with: "I don't know enough about this topic from my area of expertise to provide reliable guidance."
+${hasMultiple ? '6. Provide a comparative summary matrix ("comparison") contrasting the advice of each selected persona.' : ''}
+
+OUTPUT REQUIREMENT:
+Return ONLY a valid JSON object matching this exact JSON schema:
+{
+  "responses": [
+    {
+      "personaId": "string (one of: ${selectedIds.map(id => `"${id}"`).join(", ")})",
+      "personaName": "string",
+      "mainRecommendation": "string (clear 2-3 sentence core advice)",
+      "sections": {
+        "title1": "string section title",
+        "content1": ["bullet point 1", "bullet point 2"] or "paragraph text",
+        ...
+      }
+    }
+  ]${hasMultiple ? `,
+  "comparison": {
+    "summary": "string (2-3 sentences contrasting the persona viewpoints)",
+    "matrix": [
+      {
+        "aspect": "e.g. Core Focus",
+        ${selectedIds.map(id => `"${id}": "short summary for ${id}"`).join(",\n        ")}
+      },
+      {
+        "aspect": "Top Priority Action",
+        ${selectedIds.map(id => `"${id}": "short action for ${id}"`).join(",\n        ")}
+      },
+      {
+        "aspect": "Key Risk or Prerequisite",
+        ${selectedIds.map(id => `"${id}": "short risk for ${id}"`).join(",\n        ")}
+      }
+    ]
+  }` : ''}
+}
+`;
+        }
+
+        async function handleGenerateCareerAdvice() {
+            hideErrorAlert();
+            const question = state.questionText.trim();
+            const selectedIds = Array.from(state.selectedPersonas);
+
+            if (!question) {
+                showErrorAlert("Please enter your career-related question.");
+                document.getElementById("questionInput").focus();
+                return;
+            }
+
+            if (question.length > 1000) {
+                showErrorAlert("Please keep your question within 1000 characters.");
+                return;
+            }
+
+            if (selectedIds.length === 0) {
+                showErrorAlert("Please select at least one persona.");
+                return;
+            }
+
+            if (!state.apiKey) {
+                showErrorAlert("Please configure your Gemini API Key first.", true);
+                openApiModal();
+                return;
+            }
+
+            setLoading(true);
+
+            try {
+                const promptText = buildPersonaPrompt(selectedIds, question);
+                const data = await callGeminiApiWithFallback(promptText);
+
+                if (data) {
+                    state.responsesData = data;
+                    renderResults(data, selectedIds);
+                    document.getElementById("resultsWrapper").classList.add("show");
+                    document.getElementById("resultsWrapper").scrollIntoView({ behavior: "smooth" });
+                } else {
+                    showErrorAlert("We received an unexpected response structure. Please try again.");
+                }
+            } catch (err) {
+                console.error("Gemini API Error Detail:", err);
+                const errMsg = err.message || "";
+
+                if (errMsg.includes("Failed to fetch") || errMsg.includes("NetworkError")) {
+                    showErrorAlert("Network error. Please check your internet connection and try again.");
+                } else if (errMsg.includes("API_KEY_INVALID") || errMsg.includes("API key not valid") || errMsg.includes("400")) {
+                    showErrorAlert("Invalid Gemini API Key. Please check your API key in settings.", true);
+                } else if (errMsg.includes("RESOURCE_EXHAUSTED") || errMsg.includes("429")) {
+                    showErrorAlert("Gemini API rate limit exceeded. Please wait a minute and try again.");
+                } else {
+                    showErrorAlert("Unable to generate career advice right now. Please check your API key in settings.", true);
+                }
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Clean Execution Routine with Gemini 3.6 Flash as Primary Candidate
+        async function callGeminiApiWithFallback(promptText) {
+            let modelsToTry = [state.selectedModel, ...STRICT_TEXT_MODELS];
+            modelsToTry = [...new Set(modelsToTry.filter(Boolean))];
+
+            let lastError = null;
+
+            for (const model of modelsToTry) {
+                try {
+                    // Try 1: Try with responseMimeType: "application/json"
+                    return await fetchGeminiSingleModel(model, promptText, true);
+                } catch (e1) {
+                    console.warn(`Model ${model} (JSON mime) failed: ${e1.message}. Trying standard mime...`);
+                    try {
+                        // Try 2: Try without responseMimeType
+                        return await fetchGeminiSingleModel(model, promptText, false);
+                    } catch (e2) {
+                        console.warn(`Model ${model} failed: ${e2.message}`);
+                        lastError = e2;
+                    }
+                }
+            }
+
+            throw lastError || new Error("Gemini API call failed across standard text models.");
+        }
+
+        async function fetchGeminiSingleModel(model, promptText, useJsonMime) {
+            const apiKeyClean = state.apiKey.trim();
+
+            // Model Name Mapping & Normalization
+            let modelClean = model.trim();
+            if (modelClean.toLowerCase().includes("tts")) {
+                modelClean = "gemini-2.5-flash-preview-tts";
+            } else if (modelClean.toLowerCase().includes("gemma")) {
+                modelClean = "gemma-4-26b-a4b-it";
+            }
+            if (modelClean.startsWith("models/")) {
+                modelClean = modelClean.replace("models/", "");
+            }
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelClean}:generateContent?key=${apiKeyClean}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: promptText }]
+                }]
+            };
+
+            if (useJsonMime) {
+                payload.generationConfig = {
+                    temperature: 0.3,
+                    topP: 0.95,
+                    responseMimeType: "application/json"
+                };
+            }
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                const apiErr = errorData.error?.message || response.statusText;
+                throw new Error(`${response.status}: ${apiErr}`);
+            }
+
+            const result = await response.json();
+            const rawText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+            if (!rawText) {
+                throw new Error("Empty response content returned from Gemini API.");
+            }
+
+            return parseGeminiJsonResponse(rawText);
+        }
+
+        function parseGeminiJsonResponse(rawText) {
+            try {
+                let cleaned = rawText.replace(/```json/gi, "").replace(/```/g, "").trim();
+                return JSON.parse(cleaned);
+            } catch (e) {
+                console.warn("JSON regex fallback...", e);
+                const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    return JSON.parse(jsonMatch[0]);
+                }
+                throw new Error("Unable to parse structured JSON from Gemini response.");
+            }
+        }
+
+        function setLoading(isLoading) {
+            state.isLoading = isLoading;
+            const generateBtn = document.getElementById("generateBtn");
+            const loadingWrapper = document.getElementById("loadingWrapper");
+
+            if (isLoading) {
+                generateBtn.disabled = true;
+                generateBtn.innerHTML = `<span>⏳</span> <span>Generating Advice...</span>`;
+                loadingWrapper.classList.add("show");
+            } else {
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = `<span>✨</span> <span>Get Career Advice</span>`;
+                loadingWrapper.classList.remove("show");
+            }
+        }
+
+        // ==========================================================================
+        // 4. RENDERING RESPONSES & COMPARISON TABLE
+        // ==========================================================================
+        function renderResults(data, selectedIds) {
+            const responsesGrid = document.getElementById("responsesGrid");
+            responsesGrid.innerHTML = "";
+
+            const responses = data.responses || [];
+
+            responses.forEach(resp => {
+                const pInfo = PERSONAS[resp.personaId] || {
+                    name: resp.personaName || "Career Counsellor",
+                    icon: "💡",
+                    badge: "Advisor"
+                };
+
+                const cardEl = document.createElement("div");
+                cardEl.className = "response-card-panel";
+                cardEl.setAttribute("data-persona", resp.personaId);
+
+                let sectionsHtml = "";
+
+                if (resp.mainRecommendation) {
+                    sectionsHtml += `
+                        <div class="content-section-block">
+                            <div class="block-heading">📌 Main Recommendation</div>
+                            <div class="block-text">${escapeHtml(resp.mainRecommendation)}</div>
+                        </div>
+                    `;
+                }
+
+                if (resp.sections) {
+                    Object.entries(resp.sections).forEach(([key, val]) => {
+                        let title = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                        if (pInfo.sectionTitles && pInfo.sectionTitles[key]) {
+                            title = pInfo.sectionTitles[key];
+                        }
+
+                        let contentHtml = "";
+                        if (Array.isArray(val)) {
+                            contentHtml = `<ul>${val.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+                        } else {
+                            contentHtml = escapeHtml(String(val)).replace(/\n/g, "<br>");
+                        }
+
+                        sectionsHtml += `
+                            <div class="content-section-block">
+                                <div class="block-heading">🔹 ${escapeHtml(title)}</div>
+                                <div class="block-text">${contentHtml}</div>
+                            </div>
+                        `;
+                    });
+                }
+
+                cardEl.innerHTML = `
+                    <div class="card-panel-header">
+                        <div class="persona-panel-meta">
+                            <span class="persona-panel-icon">${pInfo.icon}</span>
+                            <span class="persona-panel-name">${escapeHtml(pInfo.name)}</span>
+                        </div>
+                        <button class="btn-copy-card" onclick="copyResponseCardText('${resp.personaId}')">
+                            <span>📋</span> <span id="copy-lbl-${resp.personaId}">Copy</span>
+                        </button>
+                    </div>
+                    <div class="card-panel-body">
+                        ${sectionsHtml}
+                    </div>
+                `;
+
+                responsesGrid.appendChild(cardEl);
+            });
+
+            // Comparison Table
+            const comparisonPanel = document.getElementById("comparisonCard");
+            if (selectedIds.length > 1 && data.comparison) {
+                renderComparisonTable(data.comparison, selectedIds);
+                comparisonPanel.classList.add("show");
+            } else {
+                comparisonPanel.classList.remove("show");
+            }
+        }
+
+        function renderComparisonTable(comparisonData, selectedIds) {
+            document.getElementById("comparisonSummaryText").textContent = comparisonData.summary || "Summary not available.";
+
+            const tableHead = document.getElementById("comparisonTableHead");
+            const tableBody = document.getElementById("comparisonTableBody");
+
+            let headHtml = `<tr><th class="aspect-col">Aspect</th>`;
+            selectedIds.forEach(id => {
+                const p = PERSONAS[id];
+                headHtml += `<th>${p.icon} ${escapeHtml(p.name)}</th>`;
+            });
+            headHtml += `</tr>`;
+            tableHead.innerHTML = headHtml;
+
+            let bodyHtml = "";
+            const matrix = comparisonData.matrix || [];
+
+            matrix.forEach(row => {
+                bodyHtml += `<tr>`;
+                bodyHtml += `<td class="aspect-col">${escapeHtml(row.aspect || "Perspective")}</td>`;
+                selectedIds.forEach(id => {
+                    const val = row[id] || "-";
+                    bodyHtml += `<td>${escapeHtml(val)}</td>`;
+                });
+                bodyHtml += `</tr>`;
+            });
+
+            tableBody.innerHTML = bodyHtml;
+        }
+
+        // ==========================================================================
+        // 5. PROMPT ACCORDIONS RENDERING
+        // ==========================================================================
+        function renderPromptAccordions() {
+            const container = document.getElementById("promptAccordionsGroup");
+            container.innerHTML = "";
+
+            Object.values(PERSONAS).forEach((p, idx) => {
+                const item = document.createElement("div");
+                item.className = `prompt-accordion-item ${idx === 0 ? "active" : ""}`;
+                item.id = `acc-${p.id}`;
+
+                item.innerHTML = `
+                    <button class="accordion-btn" onclick="toggleAccordion('acc-${p.id}')">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span>${p.icon}</span>
+                            <span>${p.name} (6-Element Prompt Card)</span>
+                        </div>
+                        <span class="accordion-arrow">▼</span>
+                    </button>
+                    <div class="accordion-content-panel">
+                        <div class="fields-grid">
+                            <div class="field-card-item">
+                                <div class="field-tag-label">1. Role</div>
+                                <div class="field-tag-value">${escapeHtml(p.role)}</div>
+                            </div>
+                            <div class="field-card-item">
+                                <div class="field-tag-label">2. Audience</div>
+                                <div class="field-tag-value">${escapeHtml(p.audience)}</div>
+                            </div>
+                            <div class="field-card-item">
+                                <div class="field-tag-label">3. Context</div>
+                                <div class="field-tag-value">${escapeHtml(p.context)}</div>
+                            </div>
+                            <div class="field-card-item">
+                                <div class="field-tag-label">4. Format</div>
+                                <div class="field-tag-value">${escapeHtml(p.format)}</div>
+                            </div>
+                            <div class="field-card-item">
+                                <div class="field-tag-label">5. Constraints</div>
+                                <div class="field-tag-value">${escapeHtml(p.constraints)}</div>
+                            </div>
+                            <div class="field-card-item">
+                                <div class="field-tag-label">6. Language</div>
+                                <div class="field-tag-value">${escapeHtml(p.language)}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(item);
+            });
+        }
+
+        function toggleAccordion(itemId) {
+            const item = document.getElementById(itemId);
+            if (item) {
+                item.classList.toggle("active");
+            }
+        }
+
+        // ==========================================================================
+        // 6. UTILITIES (RESET, COPY, PRINT, ESCAPE)
+        // ==========================================================================
+        function resetApplicationState() {
+            clearQuestionInput();
+            state.selectedPersonas.clear();
+
+            document.querySelectorAll(".persona-card").forEach(card => {
+                card.classList.remove("selected");
+                card.setAttribute("aria-checked", "false");
+            });
+
+            updateSelectedCounter();
+            hideErrorAlert();
+
+            document.getElementById("resultsWrapper").classList.remove("show");
+            document.getElementById("question-section").scrollIntoView({ behavior: "smooth" });
+        }
+
+        function copyResponseCardText(personaId) {
+            const card = document.querySelector(`.response-card-panel[data-persona="${personaId}"]`);
+            if (!card) return;
+
+            const personaName = card.querySelector(".persona-panel-name").textContent;
+            let textToCopy = `=== ${personaName} Advice ===\n\n`;
+
+            card.querySelectorAll(".content-section-block").forEach(block => {
+                const title = block.querySelector(".block-heading").textContent;
+                const content = block.querySelector(".block-text").innerText;
+                textToCopy += `${title}:\n${content}\n\n`;
+            });
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const lbl = document.getElementById(`copy-lbl-${personaId}`);
+                if (lbl) {
+                    const orig = lbl.textContent;
+                    lbl.textContent = "Copied!";
+                    setTimeout(() => { lbl.textContent = orig; }, 2000);
+                }
+            }).catch(err => {
+                console.error("Copy error:", err);
+            });
+        }
+
+        function triggerBrowserPrint() {
+            window.print();
+        }
+
+        function escapeHtml(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+
+</html>
